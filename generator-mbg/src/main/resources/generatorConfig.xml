@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="mysqltables" targetRuntime="MyBatis3">
+		<!-- 默认编码 -->
+		<property name="javaFileEncoding" value="UTF-8"/>
+		<!-- 当表名或列名是关键字时，自动加``包括 -->
+		<property name="autoDelimitKeywords" value="true"/>
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+		<!-- 分页插件 -->
+		<plugin type="generator.plugins.MySQLPaginationPlugin"></plugin>
+		<!-- 返回自增长主键插件 -->
+		<plugin type="generator.plugins.MySQLGeneratorPrimaryKeyPlugin"></plugin>
+		<!-- 序列化插件 -->
+		<plugin type="generator.plugins.EntitySerializablePlugin"></plugin>
+		<!-- class添加Base前缀 -->
+		<plugin type="generator.plugins.BaseClassPlugin"></plugin>
+		<commentGenerator type="generator.plugins.CommentGenerator">
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.100.105:3306/qx" userId="root" password="root">
+		</jdbcConnection> -->
+		<!--<jdbcConnection driverClass="org.gjt.mm.mysql.Driver"-->
+			<!--connectionURL="jdbc:mysql://10.100.216.48:3306/wwy?useSSL=false" userId="root" password="123456">-->
+		<!--</jdbcConnection>-->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://192.168.159.128:3306/db_user?useSSL=false"
+						userId="jeff" password="jeff">
+		</jdbcConnection>
+		<!-- <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+			connectionURL="jdbc:mysql://10.100.216.48:3306/wwy?useSSL=false" userId="root" password="123456">
+		</jdbcConnection> -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- java model路径 -->
+		<javaModelGenerator targetPackage="wwy.model"
+			targetProject="generator-mbg/src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- xml mapper路径 -->
+		<sqlMapGenerator targetPackage="wwy.mapper"
+			targetProject="generator-mbg/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- java mapper路径 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="wwy.mapper" targetProject="generator-mbg/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<table tableName="user" domainObjectName="User" delimitIdentifiers="true"
+			   enableCountByExample="true"
+			   enableUpdateByExample="true" enableDeleteByExample="true"
+			   enableSelectByExample="true" selectByExampleQueryId="true"
+			   enableInsert="true" enableUpdateByPrimaryKey="true"
+			   enableDeleteByPrimaryKey="true">
+
+			<!--<property name="useActualColumnNames" value="false"/>-->
+			<!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR"/>-->
+		</table>
+		<!--<table tableName="ORDER" domainObjectName="Order" delimitIdentifiers="true">-->
+			<!--<property name="useActualColumnNames" value="false" />-->
+			<!--<property name="domainPackage" value="base" />-->
+			<!--&lt;!&ndash; 设置实体类父类 &ndash;&gt;-->
+			<!--&lt;!&ndash; <property name="rootClass" value="com.wwy.BaseEntity" /> &ndash;&gt;-->
+			<!--&lt;!&ndash; 设置mapper.java默认实现接口 &ndash;&gt;-->
+			<!--&lt;!&ndash; <property name="rootInterface" value="com.wwy.BaseInterface" /> &ndash;&gt;-->
+			<!--&lt;!&ndash; <generatedKey column="id" sqlStatement="MySql" identity="true" /> &ndash;&gt;-->
+			<!--<columnRenamingRule searchString="_" replaceString="" />-->
+			<!--<columnOverride column="aliveflag" javaType="java.lang.Integer" />-->
+		<!--</table>-->
+	</context>
+</generatorConfiguration>
