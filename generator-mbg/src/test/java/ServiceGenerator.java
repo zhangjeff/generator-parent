@@ -7,10 +7,8 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -59,6 +57,7 @@ public class ServiceGenerator {
                 String modelTarget = javaModelGeneratorConfiguration.getTargetPackage();
                 String modelPath = modelTarget.replace(".", "/");
                 String servicePath = modelTarget.substring(0, modelTarget.lastIndexOf(".")) + ".service";
+                String controllerPath = modelTarget.substring(0, modelTarget.lastIndexOf(".")) + ".controller";
                 String serviceImplPath = servicePath + ".impl";
                 String mapperPath = context.getJavaClientGeneratorConfiguration().getTargetPackage();
                 String domain = null;
@@ -122,6 +121,33 @@ public class ServiceGenerator {
                             targetProject + "/" + servicePath.replace(".", "/") + "/" + domain + "Service.java");// 生成service
                     generateServiceImpl(cfg, serviceMap, targetProject + "/" + serviceImplPath.replace(".", "/") + "/"
                             + domain + "ServiceImpl.java");// 生成serviceImpl
+
+
+                    // 开始生成Controller
+                    Map<String, Object> controllerMap = new HashMap<>();
+                    controllerMap.put("domainName", domain);
+                    controllerMap.put("classAuthor", "jeff zhang");
+
+                    //我要获取当前的日期
+                    Date date = new Date();
+                    //设置要获取到什么样的时间
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    //获取String类型的时间
+                    String controllerPackage = "controller";
+                    String createdate = sdf.format(date);
+                    controllerMap.put("currDate", createdate);
+                    controllerMap.put("packageName", controllerPath);
+                    controllerMap.put("package", controllerPath);
+                    controllerMap.put("moduleName", "");
+                    controllerMap.put("primaryKeyType", primaryKeyType);
+                    controllerMap.put("baseModelPackage", controllerPath);
+                    controllerMap.put("genericServicePackage", Constants.GENERIC_SERVICE_PACKAGE);
+                    controllerMap.put("genericMapperPackage", Constants.GENERIC_MAPPER_PACKAGE);
+                    controllerMap.put("genericServiceImplPackage", Constants.GENERIC_SERVICEIMPL_PACKAGE);
+                    controllerMap.put("smallDomainName", smallDomainName);
+//                    controllerMap.put("mapperPackage", mapperPath + "." + domain + "Mapper");
+                    generateController(cfg, controllerMap,
+                            targetProject + "/" + controllerPath.replace(".", "/") + "/" + domain + "Controller.java");// 生成entity
                 }
             }
         } catch (IOException | XMLParserException | NoSuchFieldException | SecurityException | IllegalArgumentException
@@ -196,6 +222,11 @@ public class ServiceGenerator {
     public static void generateServiceImpl(freemarker.template.Configuration cfg, Map<String, Object> map,
             String filePath) throws IOException {
         generate("serviceImpl.ftl", cfg, map, filePath);
+    }
+
+    public static void generateController(freemarker.template.Configuration cfg, Map<String, Object> map,
+                                           String filePath) throws IOException {
+        generate("controller.ftl", cfg, map, filePath);
     }
 
     private static String renderTemplate(Template template, Object model) {

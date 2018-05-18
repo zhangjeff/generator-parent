@@ -41,19 +41,19 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!-- java model路径 -->
-		<javaModelGenerator targetPackage="wwy.model"
+		<javaModelGenerator targetPackage="jeff.model"
 			targetProject="generator-mbg/src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- xml mapper路径 -->
-		<sqlMapGenerator targetPackage="wwy.mapper"
+		<sqlMapGenerator targetPackage="jeff.mapper"
 			targetProject="generator-mbg/src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- java mapper路径 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="wwy.mapper" targetProject="generator-mbg/src/main/java">
+			targetPackage="jeff.mapper" targetProject="generator-mbg/src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<table tableName="user" domainObjectName="User" delimitIdentifiers="true"

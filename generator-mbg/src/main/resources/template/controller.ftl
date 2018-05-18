@@ -8,7 +8,7 @@
  * <author>      <time>      <version>    <desc>
  * 修改人姓名                           修改时间                        版本号                                描述
  */
-package com.autostreets.web.controller.${moduleName};
+package ${package};
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class ${domainName}Controller extends BaseController {
 	@ResponseBody
 	public String save(${domainName} ${smallDomainName}, Model model) {
 		try {
-            <#if dataType == 'varchar'>${smallDomainName}.setSid(UUIDUtil.getUUID());</#if>
+            <#--<#if dataType == 'varchar'>${smallDomainName}.setSid(UUIDUtil.getUUID());</#if>-->
             ${smallDomainName}.setCreatedTime(new Date());
             ${smallDomainName}Service.insert(${domainName});
             return true;
